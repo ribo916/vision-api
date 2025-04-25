@@ -16,19 +16,23 @@ const __dirname = dirname(__filename);
 const upload = multer({ dest: 'uploads/' });
 
 
+const serverUrl = process.env.NODE_ENV === 'production'
+  ? 'https://vision-api-ssnv.onrender.com'
+  : 'http://localhost:3000';
+
 const swaggerDefinition = {
-    openapi: '3.0.0',
-    info: {
-      title: 'VisionFI API Proxy',
-      version: '1.0.0',
-      description: 'Simple Express API that wraps the VisionFI SDK for document analysis'
-    },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Local development server'
-      }
-    ]
+  openapi: '3.0.0',
+  info: {
+    title: 'VisionFI API Proxy',
+    version: '1.0.0',
+    description: 'Simple Express API that wraps the VisionFI SDK for document analysis'
+  },
+  servers: [
+    {
+      url: serverUrl,
+      description: 'Dynamic server based on environment'
+    }
+  ]
 };
   
 const options = {
