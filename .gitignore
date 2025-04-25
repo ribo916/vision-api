@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Secure credentials
+visionfi_service_account.json
+
+# Uploaded files (keep folder, ignore files)
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+logs/
+*.log
+
+# Mac system files
+.DS_Store

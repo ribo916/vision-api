@@ -1,0 +1,30 @@
+{
+  "name": "visionfi-api",
+  "version": "1.0.0",
+  "description": "Express API proxy for VisionFI SDK",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "visionfi",
+    "api",
+    "express",
+    "nodejs"
+  ],
+  "author": "Rich",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "multer": "^1.4.5-lts.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "visionfi": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
