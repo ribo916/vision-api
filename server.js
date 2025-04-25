@@ -84,6 +84,34 @@ app.get('/auth/test', async (req, res) => {
 
 /**
  * @swagger
+ * /workflows:
+ *   get:
+ *     summary: Get available workflows
+ *     description: Retrieves the list of workflows your VisionFI account is authorized to use.
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved list of workflows
+ *       500:
+ *         description: Failed to retrieve workflows
+ */
+app.get('/workflows', async (req, res) => {
+  try {
+    const workflows = await client.getWorkflows();
+    res.status(200).json({
+      message: 'Workflows retrieved successfully',
+      data: workflows.data || []
+    });
+  } catch (error) {
+    console.error('Workflows retrieval error:', error.message);
+    res.status(500).json({
+      message: 'Error retrieving workflows',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * @swagger
  * /analyze/invoice:
  *   post:
  *     summary: Analyze an invoice document
@@ -129,6 +157,58 @@ app.post('/analyze/invoice', upload.single('file'), async (req, res) => {
     console.error('Invoice analysis error:', error.message);
     res.status(500).json({
       message: 'Error analyzing invoice',
+      error: error.message
+    });
+  }
+});
+
+/**
+ * @swagger
+ * /analyze/id:
+ *   post:
+ *     summary: Analyze a government ID document
+ *     description: Upload a PDF or image to analyze using the 'government_id_processing' workflow.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The government ID file to be analyzed
+ *     responses:
+ *       200:
+ *         description: Analysis started successfully, returns job UUID
+ *       400:
+ *         description: No file uploaded or bad request
+ *       500:
+ *         description: Error processing the document
+ */
+app.post('/analyze/id', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded.' });
+    }
+
+    const fileBuffer = fs.readFileSync(req.file.path);
+    const fileName = req.file.originalname;
+
+    const result = await client.analyzeDocument(fileBuffer, {
+      fileName,
+      analysisType: 'government_id_processing'
+    });
+
+    res.status(200).json({
+      message: 'Government ID analysis started',
+      jobUUID: result.uuid
+    });
+  } catch (error) {
+    console.error('Government ID analysis error:', error.message);
+    res.status(500).json({
+      message: 'Error analyzing government ID',
       error: error.message
     });
   }
