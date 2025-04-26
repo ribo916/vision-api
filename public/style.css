@@ -1,0 +1,62 @@
+body, .navbar, .card-body {
+    transition: background-color 0.5s, color 0.5s;
+  }
+  
+  body.bg-light {
+    background-color: #eeeeee !important;
+  }
+  
+  body.bg-dark {
+    background-color: #121212 !important;
+  }
+  
+  pre {
+    white-space: pre-wrap;
+  }
+  
+  .navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  button.btn {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  button.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+  }
+  
+  /* Modal overlay for processing */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  
+  /* Active class to show the modal */
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  /* Toasts */
+  .toast-success {
+    background-color: #d4edda;
+  }
+  
+  .toast-error {
+    background-color: #f8d7da;
+  }
+  

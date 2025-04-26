@@ -44,6 +44,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 const { VisionFi } = visionfi;
 const app = express();
+app.use(express.static('public'));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const PORT = process.env.PORT || 3000;
 const serviceAccountJson = JSON.parse(
@@ -167,7 +168,7 @@ app.post('/analyze/invoice', upload.single('file'), async (req, res) => {
  * /analyze/id:
  *   post:
  *     summary: Analyze a government ID document
- *     description: Upload a PDF or image to analyze using the 'government_id_processing' workflow.
+ *     description: Upload a PDF or image to analyze using the 'government_identification' workflow.
  *     requestBody:
  *       required: true
  *       content:
@@ -198,7 +199,7 @@ app.post('/analyze/id', upload.single('file'), async (req, res) => {
 
     const result = await client.analyzeDocument(fileBuffer, {
       fileName,
-      analysisType: 'government_id_processing'
+      analysisType: 'government_identification'
     });
 
     res.status(200).json({
