@@ -1,6 +1,8 @@
-# VisionFI Proxy API
+# VisionFI Proxy Playground
 
-Simple Express.js API that wraps the VisionFI SDK to enable document analysis via secure endpoints.
+A lightweight Express.js server that wraps the VisionFI SDK into simple web API endpoints. Includes a browser-based UI to test document uploads, analysis, and result retrieval directly without needing Postman or other external tools.
+
+Built for easier hands-on exploration and validation of VisionFI workflows.
 
 ---
 
